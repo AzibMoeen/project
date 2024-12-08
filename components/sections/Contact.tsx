@@ -5,8 +5,22 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { Mail, MessageSquare, Github, Linkedin } from "lucide-react";
+import { useState } from "react";
 
 const Contact = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const handleChange = (e: any) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  }
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    console.log(formData);
+  };
   return (
     <section id="contact" className="scroll-mt-16">
       <h2 className="text-3xl font-bold mb-8">Get in Touch</h2>
@@ -28,12 +42,12 @@ const Contact = () => {
             </div>
             <div className="flex gap-4 mt-6">
               <Button variant="outline" size="icon" asChild>
-                <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+                <a href="https://github.com/AzibMoeen" target="_blank" rel="noopener noreferrer">
                   <Github className="h-5 w-5" />
                 </a>
               </Button>
               <Button variant="outline" size="icon" asChild>
-                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+                <a href="https://www.linkedin.com/in/azib-moeen" target="_blank" rel="noopener noreferrer">
                   <Linkedin className="h-5 w-5" />
                 </a>
               </Button>
@@ -43,20 +57,27 @@ const Contact = () => {
 
         <Card>
           <CardHeader>
-            <CardTitle>Send a Message</CardTitle>
+            <button >
+            <CardTitle >Send a Message</CardTitle></button>
           </CardHeader>
           <CardContent>
-            <form className="space-y-4">
+            <form className="space-y-4" onSubmit={handleSubmit}>
               <div>
-                <Input placeholder="Your Name" />
+                <Input placeholder="Your Name"
+                name="name"
+                onChange={(e)=>{handleChange(e)}} />
               </div>
               <div>
-                <Input type="email" placeholder="Your Email" />
+                <Input type="email" placeholder="Your Email"
+                name="email"
+                onChange={(e)=>{handleChange(e)}} />
               </div>
               <div>
-                <Textarea placeholder="Your Message" className="min-h-[120px]" />
+                <Textarea placeholder="Your Message" className="min-h-[120px]"
+                name="message"
+                onChange={(e)=>{handleChange(e)}}/>
               </div>
-              <Button className="w-full">Send Message</Button>
+              <Button type="submit" className="w-full">Send Message</Button>
             </form>
           </CardContent>
         </Card>
